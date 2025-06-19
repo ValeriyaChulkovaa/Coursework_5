@@ -19,6 +19,9 @@ def habits_scheduler():
 
     for habit in habits:
         if weekday in habit.frequency:
-            if habit.time.hour == current_time.hour and habit.time.minute == current_time.minute:
+            if (
+                habit.time.hour == current_time.hour
+                and habit.time.minute == current_time.minute
+            ):
                 print("Yoj")
                 send_telegram_message(habit.owner.tg_chat_id, str(habit))

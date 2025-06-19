@@ -22,7 +22,9 @@ class Migration(migrations.Migration):
                 default=src.utils.week_days,
                 size=None,
                 validators=[
-                    django.core.validators.MinLengthValidator(1, "Привычка должна выполняться минимум 1 раз в неделю")
+                    django.core.validators.MinLengthValidator(
+                        1, "Привычка должна выполняться минимум 1 раз в неделю"
+                    )
                 ],
                 verbose_name="Периодичность",
             ),

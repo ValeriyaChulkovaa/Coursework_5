@@ -5,6 +5,7 @@ class RelatedHabitOrRewardValidator:
     """
     Проверка, что одновременно не заполнены поле вознаграждения и поле связанной привычки
     """
+
     def __init__(self, field_1=None, field_2=None, is_update=None):
         self.field_1 = field_1
         self.field_2 = field_2
@@ -12,7 +13,9 @@ class RelatedHabitOrRewardValidator:
 
     def __call__(self, value=None, instance=None, updated_instance=None):
 
-        error = ValidationError("Может быть заполнено только одно поле: либо related_habit, либо reward")
+        error = ValidationError(
+            "Может быть заполнено только одно поле: либо related_habit, либо reward"
+        )
 
         # Проверка при обновлении
         if self.is_update and updated_instance:
@@ -42,6 +45,7 @@ class IsPleasantHabitValidator:
     """
     Проверка, что связанная привычка является приятной
     """
+
     def __init__(self, field):
         self.field = field
 
@@ -65,7 +69,9 @@ class NotRewardOrRelatedHabitValidator:
 
     def __call__(self, value=None, instance=None, updated_instance=None):
 
-        error = ValidationError("У приятной привычки не могут быть заполнены поля: related_habit, reward")
+        error = ValidationError(
+            "У приятной привычки не могут быть заполнены поля: related_habit, reward"
+        )
 
         # Проверка при обновлении
         if self.is_update and updated_instance:
@@ -75,8 +81,9 @@ class NotRewardOrRelatedHabitValidator:
                 if updated_instance.related_habit or updated_instance.reward:
                     raise error
             # Когда поля related_habit / reward уже имели значения и не были удалены при обновлении
-            elif ((instance.related_habit or instance.reward)
-                  and (updated_instance.related_habit or updated_instance.reward)):
+            elif (instance.related_habit or instance.reward) and (
+                updated_instance.related_habit or updated_instance.reward
+            ):
                 # и устанавливается флаг приятной привычки
                 if updated_instance.is_pleasant_habit:
                     raise error

@@ -21,9 +21,20 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name="Place",
             fields=[
-                ("id", models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
                 ("name", models.CharField(max_length=100, verbose_name="Название")),
-                ("description", models.TextField(blank=True, null=True, verbose_name="Описание")),
+                (
+                    "description",
+                    models.TextField(blank=True, null=True, verbose_name="Описание"),
+                ),
             ],
             options={
                 "verbose_name": "Место",
@@ -33,10 +44,28 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name="Habit",
             fields=[
-                ("id", models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
-                ("time", models.TimeField(verbose_name="Время, когда привычка будет выполняться")),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "time",
+                    models.TimeField(
+                        verbose_name="Время, когда привычка будет выполняться"
+                    ),
+                ),
                 ("action", models.CharField(max_length=150, verbose_name="Действие")),
-                ("is_pleasant_habit", models.BooleanField(default=False, verbose_name="Приятная привычка")),
+                (
+                    "is_pleasant_habit",
+                    models.BooleanField(
+                        default=False, verbose_name="Приятная привычка"
+                    ),
+                ),
                 (
                     "frequency",
                     django.contrib.postgres.fields.ArrayField(
@@ -46,20 +75,34 @@ class Migration(migrations.Migration):
                         verbose_name="Периодичность",
                     ),
                 ),
-                ("reward", models.CharField(blank=True, max_length=150, null=True, verbose_name="Вознаграждение")),
+                (
+                    "reward",
+                    models.CharField(
+                        blank=True,
+                        max_length=150,
+                        null=True,
+                        verbose_name="Вознаграждение",
+                    ),
+                ),
                 (
                     "lead_time",
                     models.PositiveSmallIntegerField(
                         default=60,
                         validators=[
                             django.core.validators.MaxValueValidator(
-                                120, "Время выполнения привычки не может быть больше 120 секунд"
+                                120,
+                                "Время выполнения привычки не может быть больше 120 секунд",
                             )
                         ],
                         verbose_name="Время на выполнение",
                     ),
                 ),
-                ("is_public", models.BooleanField(default=False, verbose_name="Публичная привычка")),
+                (
+                    "is_public",
+                    models.BooleanField(
+                        default=False, verbose_name="Публичная привычка"
+                    ),
+                ),
                 (
                     "owner",
                     models.ForeignKey(

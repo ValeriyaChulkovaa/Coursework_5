@@ -71,6 +71,23 @@ redis-server
 celery -A config worker --beat --scheduler django --loglevel=info
 ```
 
+6. **Запуск через Docker**
+```bash
+docker-compose up --build -d
+```
+
+
+## CI/CD
+
+1. Выполняется проверка линтерами
+2. Выполняется тесты
+3. Выполняется deploy(загрузка) на сервер.
+
+
+## IP Сервера
+```bash
+http://84.201.154.24/redoc/
+```
 ## 📚 Документация
 Доступна после запуска сервера:
 - Swagger UI: [http://localhost:8000/swagger/](http://localhost:8000/swagger/)

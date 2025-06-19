@@ -14,12 +14,14 @@ class Place(models.Model):
 
     name = models.CharField(max_length=100, verbose_name="Название")
     description = models.TextField(verbose_name="Описание", null=True, blank=True)
-    owner = models.ForeignKey(User,
-                              on_delete=models.CASCADE,
-                              verbose_name="Создатель места",
-                              related_name="places",
-                              null=True,
-                              blank=True)
+    owner = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        verbose_name="Создатель места",
+        related_name="places",
+        null=True,
+        blank=True,
+    )
 
     class Meta:
         verbose_name = "Место"
@@ -33,36 +35,55 @@ class Habit(models.Model):
     """
     Модель привычки
     """
-    owner = models.ForeignKey(User,
-                              on_delete=models.CASCADE,
-                              verbose_name="Создатель привычки",
-                              related_name="habits",
-                              null=True,
-                              blank=True)
-    place = models.ForeignKey(Place,
-                              on_delete=models.PROTECT,
-                              verbose_name="Место выполнения привычки",
-                              related_name="habits")
+
+    owner = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        verbose_name="Создатель привычки",
+        related_name="habits",
+        null=True,
+        blank=True,
+    )
+    place = models.ForeignKey(
+        Place,
+        on_delete=models.PROTECT,
+        verbose_name="Место выполнения привычки",
+        related_name="habits",
+    )
     time = models.TimeField(verbose_name="Время, когда привычка будет выполняться")
     action = models.CharField(max_length=150, verbose_name="Действие")
-    is_pleasant_habit = models.BooleanField(verbose_name="Приятная привычка", default=False)
-    related_habit = models.ForeignKey("self",
-                                      on_delete=models.SET_NULL,
-                                      verbose_name="Связанная привычка",
-                                      null=True,
-                                      blank=True,
-                                      related_name="habits")
+    is_pleasant_habit = models.BooleanField(
+        verbose_name="Приятная привычка", default=False
+    )
+    related_habit = models.ForeignKey(
+        "self",
+        on_delete=models.SET_NULL,
+        verbose_name="Связанная привычка",
+        null=True,
+        blank=True,
+        related_name="habits",
+    )
 
-    frequency = ArrayField(base_field=models.CharField(max_length=2),
-                           verbose_name="Периодичность",
-                           default=week_days,
-                           validators=[MinLengthValidator(1, "Привычка должна выполняться минимум 1 раз в неделю")])
-    reward = models.CharField(max_length=150, verbose_name="Вознаграждение", null=True, blank=True)
-    lead_time = models.PositiveSmallIntegerField(default=60,
-                                                 verbose_name="Время на выполнение",
-                                                 validators=[MaxValueValidator(120,
-                                                                               "Время выполнения привычки не может "
-                                                                               "быть больше 120 секунд")])
+    frequency = ArrayField(
+        base_field=models.CharField(max_length=2),
+        verbose_name="Периодичность",
+        default=week_days,
+        validators=[
+            MinLengthValidator(1, "Привычка должна выполняться минимум 1 раз в неделю")
+        ],
+    )
+    reward = models.CharField(
+        max_length=150, verbose_name="Вознаграждение", null=True, blank=True
+    )
+    lead_time = models.PositiveSmallIntegerField(
+        default=60,
+        verbose_name="Время на выполнение",
+        validators=[
+            MaxValueValidator(
+                120, "Время выполнения привычки не может " "быть больше 120 секунд"
+            )
+        ],
+    )
     is_public = models.BooleanField(default=False, verbose_name="Публичная привычка")
 
     class Meta:

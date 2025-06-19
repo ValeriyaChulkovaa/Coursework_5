@@ -15,6 +15,7 @@ class HabitListCreateAPIView(generics.ListCreateAPIView):
     """
     Дженерик для отображения списка и создания нового объекта Habit
     """
+
     queryset = Habit.objects.all()
     serializer_class = HabitSerializer
     pagination_class = HabitPaginator
@@ -39,6 +40,7 @@ class HabitListPublicAPIView(generics.ListAPIView):
     """
     Дженерик для отображения списка публичных объектов Habit:
     """
+
     queryset = Habit.objects.filter(is_public=True).order_by("pk")
     serializer_class = HabitSerializer
     pagination_class = HabitPaginator
@@ -48,6 +50,7 @@ class HabitRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     """
     Дженерик для просмотра, редактирования и удаления объекта Habit
     """
+
     queryset = Habit.objects.all()
     serializer_class = HabitSerializer
     permission_classes = [IsOwner | IsAdminUser]
@@ -72,6 +75,7 @@ class PlaceListCreateAPIView(generics.ListCreateAPIView):
     """
     Дженерик для отображения списка и создания нового объекта Place:
     """
+
     queryset = Place.objects.all()
     serializer_class = PlaceSerializer
 
@@ -94,6 +98,7 @@ class PlaceRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     """
     Дженерик для просмотра, редактирования и удаления объекта Place:
     """
+
     queryset = Place.objects.all()
     serializer_class = PlaceSerializer
     permission_classes = [IsOwner | IsAdminUser]

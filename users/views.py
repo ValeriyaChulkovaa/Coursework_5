@@ -13,6 +13,7 @@ class UserListCreateAPIView(generics.ListCreateAPIView):
     """
     Дженерик для отображения списка и создания нового объекта User:
     """
+
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
@@ -45,6 +46,7 @@ class UserRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     """
     Дженерик для просмотра, редактирования и удаления объекта User:
     """
+
     queryset = User.objects.all()
     serializer_class = UserDetailSerializer
 
@@ -69,6 +71,7 @@ class MyToken(TokenObtainPairView):
     """
     Представление для получения токенов авторизации
     """
+
     permission_classes = [AllowAny]
 
     def post(self, request, *args, **kwargs):

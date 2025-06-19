@@ -22,7 +22,9 @@ class UserTestCase(APITestCase):
         self.user_2 = User.objects.create(email="test2@email.com")
         self.user_2.set_password("12345")
         self.user_2.save()
-        self.admin = User.objects.create(email="admin@email.com", is_staff=True, is_superuser=True)
+        self.admin = User.objects.create(
+            email="admin@email.com", is_staff=True, is_superuser=True
+        )
 
         self.client.force_authenticate(self.user)
 
@@ -36,16 +38,18 @@ class UserTestCase(APITestCase):
         response = self.client.get(url)
         data = response.json()
         data_keys = [key for key in data.keys()]
-        result_keys = ['id',
-                       'email',
-                       'password',
-                       'username',
-                       'first_name',
-                       'last_name',
-                       'phone_number',
-                       'country',
-                       'avatar',
-                       'tg_chat_id']
+        result_keys = [
+            "id",
+            "email",
+            "password",
+            "username",
+            "first_name",
+            "last_name",
+            "phone_number",
+            "country",
+            "avatar",
+            "tg_chat_id",
+        ]
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(data_keys, result_keys)
@@ -55,12 +59,7 @@ class UserTestCase(APITestCase):
         response = self.client.get(url)
         data = response.json()
         data_keys = [key for key in data.keys()]
-        result_keys = ['id',
-                       'email',
-                       'username',
-                       'first_name',
-                       'country',
-                       'avatar']
+        result_keys = ["id", "email", "username", "first_name", "country", "avatar"]
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(data_keys, result_keys)
@@ -71,16 +70,18 @@ class UserTestCase(APITestCase):
         response = self.client.get(url)
         data = response.json()
         data_keys = [key for key in data.keys()]
-        result_keys = ['id',
-                       'email',
-                       'password',
-                       'username',
-                       'first_name',
-                       'last_name',
-                       'phone_number',
-                       'country',
-                       'avatar',
-                       'tg_chat_id']
+        result_keys = [
+            "id",
+            "email",
+            "password",
+            "username",
+            "first_name",
+            "last_name",
+            "phone_number",
+            "country",
+            "avatar",
+            "tg_chat_id",
+        ]
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(data_keys, result_keys)
@@ -91,10 +92,7 @@ class UserTestCase(APITestCase):
         """
 
         url = reverse("users:users")
-        data = {
-            "email": "test3@email.com",
-            "password": "12345"
-        }
+        data = {"email": "test3@email.com", "password": "12345"}
         response = self.client.post(url, data)
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -108,9 +106,7 @@ class UserTestCase(APITestCase):
 
         # Обычный пользователь - свой профиль
         url = reverse("users:user", args=[self.user.pk])
-        data = {
-            "username": "test"
-        }
+        data = {"username": "test"}
         response = self.client.patch(url, data)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -118,9 +114,7 @@ class UserTestCase(APITestCase):
 
         # Обычный пользователь - чужой профиль
         url = reverse("users:user", args=[self.admin.pk])
-        data = {
-            "username": "test"
-        }
+        data = {"username": "test"}
         response = self.client.patch(url, data)
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
@@ -128,9 +122,7 @@ class UserTestCase(APITestCase):
         # Админ - конфиденциальные данные
         self.client.force_authenticate(self.admin)
         url = reverse("users:user", args=[self.user.pk])
-        data = {
-            "phone_number": "8-800-555-35-35"
-        }
+        data = {"phone_number": "8-800-555-35-35"}
         response = self.client.patch(url, data)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -170,24 +162,32 @@ class UserTestCase(APITestCase):
         url = reverse("users:users")
         response = self.client.get(url)
         data = response.json()
-        result = [{'id': self.user.pk,
-                   'email': self.user.email,
-                   'username': self.user.username,
-                   'first_name': self.user.first_name,
-                   'country': self.user.country,
-                   'avatar': None},
-                  {'id': self.user_2.pk,
-                   'email': self.user_2.email,
-                   'username': self.user_2.username,
-                   'first_name': self.user_2.first_name,
-                   'country': self.user_2.country,
-                   'avatar': None},
-                  {'id': self.admin.pk,
-                   'email': self.admin.email,
-                   'username': self.admin.username,
-                   'first_name': self.admin.first_name,
-                   'country': self.admin.country,
-                   'avatar': None}]
+        result = [
+            {
+                "id": self.user.pk,
+                "email": self.user.email,
+                "username": self.user.username,
+                "first_name": self.user.first_name,
+                "country": self.user.country,
+                "avatar": None,
+            },
+            {
+                "id": self.user_2.pk,
+                "email": self.user_2.email,
+                "username": self.user_2.username,
+                "first_name": self.user_2.first_name,
+                "country": self.user_2.country,
+                "avatar": None,
+            },
+            {
+                "id": self.admin.pk,
+                "email": self.admin.email,
+                "username": self.admin.username,
+                "first_name": self.admin.first_name,
+                "country": self.admin.country,
+                "avatar": None,
+            },
+        ]
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(data, result)
@@ -200,10 +200,7 @@ class UserTestCase(APITestCase):
 
         # Проверка авторизации
         url = reverse("users:login")
-        data = {
-            "email": "test@email.com",
-            "password": "12345"
-        }
+        data = {"email": "test@email.com", "password": "12345"}
         response = self.client.post(url, data)
         result = response.json()
         result_keys = [key for key in result.keys()]
@@ -212,9 +209,7 @@ class UserTestCase(APITestCase):
 
         # Проверка обновления access токена по refresh токену
         url = reverse("users:token-refresh")
-        data = {
-            "refresh": result["refresh"]
-        }
+        data = {"refresh": result["refresh"]}
         response = self.client.post(url, data)
         result = response.json()
 

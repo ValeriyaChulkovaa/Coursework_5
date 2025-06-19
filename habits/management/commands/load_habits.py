@@ -14,6 +14,8 @@ class Command(BaseCommand):
         Place.objects.all().delete()
         Habit.objects.all().delete()
 
-        call_command('loaddata', 'habits.json')
+        call_command("loaddata", "habits.json")
 
-        self.stdout.write(self.style.SUCCESS("Фикстуры из файла habits.json успешно загружены"))
+        self.stdout.write(
+            self.style.SUCCESS("Фикстуры из файла habits.json успешно загружены")
+        )

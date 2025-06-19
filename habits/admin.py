@@ -9,6 +9,7 @@ class PlaceAdmin(admin.ModelAdmin):
     """
     Класс для отображения модели Place в интерфейсе админки
     """
+
     list_display = ("id", "name")
 
 
@@ -17,4 +18,5 @@ class HabitAdmin(admin.ModelAdmin):
     """
     Класс для отображения модели Habit в интерфейсе админки
     """
+
     list_display = ("id", "action")

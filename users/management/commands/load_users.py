@@ -13,6 +13,8 @@ class Command(BaseCommand):
 
         User.objects.all().delete()
 
-        call_command('loaddata', 'users.json')
+        call_command("loaddata", "users.json")
 
-        self.stdout.write(self.style.SUCCESS("Фикстуры из файла users.json успешно загружены"))
+        self.stdout.write(
+            self.style.SUCCESS("Фикстуры из файла users.json успешно загружены")
+        )

@@ -7,6 +7,7 @@ class NewUserSerializer(serializers.ModelSerializer):
     """
     Сериализатор для модели User для авторизации пользователя
     """
+
     class Meta:
         model = User
         fields = "__all__"
@@ -29,5 +30,15 @@ class UserDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ["id", "email", "password", "username", "first_name", "last_name", "phone_number",
-                  "country", "avatar", "tg_chat_id"]
+        fields = [
+            "id",
+            "email",
+            "password",
+            "username",
+            "first_name",
+            "last_name",
+            "phone_number",
+            "country",
+            "avatar",
+            "tg_chat_id",
+        ]

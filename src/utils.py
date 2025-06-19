@@ -23,7 +23,5 @@ def send_telegram_message(chat_id, message):
     """
     Отправка сообщения в ТГ
     """
-    params = {
-        'text': message,
-        'chat_id': chat_id}
-    requests.get(f'{TELEGRAM_URl}{TELEGRAM_BOT_TOKEN}/sendMessage', params=params)
+    params = {"text": message, "chat_id": chat_id}
+    requests.get(f"{TELEGRAM_URl}{TELEGRAM_BOT_TOKEN}/sendMessage", params=params)

@@ -1,7 +1,11 @@
 from rest_framework import serializers
 
 from .models import Habit, Place
-from .validators import IsPleasantHabitValidator, NotRewardOrRelatedHabitValidator, RelatedHabitOrRewardValidator
+from .validators import (
+    IsPleasantHabitValidator,
+    NotRewardOrRelatedHabitValidator,
+    RelatedHabitOrRewardValidator,
+)
 
 
 class PlaceSerializer(serializers.ModelSerializer):
@@ -22,6 +26,10 @@ class HabitSerializer(serializers.ModelSerializer):
     class Meta:
         model = Habit
         fields = "__all__"
-        validators = [RelatedHabitOrRewardValidator("reward", "related_habit"),
-                      IsPleasantHabitValidator("related_habit"),
-                      NotRewardOrRelatedHabitValidator("is_pleasant_habit", "related_habit", "reward")]
+        validators = [
+            RelatedHabitOrRewardValidator("reward", "related_habit"),
+            IsPleasantHabitValidator("related_habit"),
+            NotRewardOrRelatedHabitValidator(
+                "is_pleasant_habit", "related_habit", "reward"
+            ),
+        ]
