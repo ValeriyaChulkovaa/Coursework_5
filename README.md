@@ -30,7 +30,7 @@ API-сервис для создания и управления полезны�
 
 1. **Клонировать репозиторий**
 ```bash
-git clone https://github.com/ValeriyaChulkovaa/Coursework_5.git
+git clone https://github.com/ValeriyaChulkovaa/Coursework_5
 cd Project_5_Habit_Tracker
 ```
 
